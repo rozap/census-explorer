@@ -1,0 +1,19 @@
+<div class="col-lg-12 results-head">
+	<h6>Results (<%- results.length %>)</h6>
+</div>
+
+<div class="col-lg-12">
+	<ul class="result-list">
+		<% results.each(function(result) { %>
+			<li class="result-item">
+				<a href="#dataset/<%- result.get('variable') %>">
+					<h6><%- result.get('variable') %></h6>
+					<h5><%- result.get('concept') %></h5>
+					<h5><%- result.get('label') %></h5>
+				</a>
+
+				<span class="dataset-label label label-primary"><%- result.get('dataset') %></span>
+			</li>
+		<% }); %>
+	</ul>
+</div>
