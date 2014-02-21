@@ -8,7 +8,7 @@ define([
 	var Router = Backbone.Router.extend({
 
 		routes: {
-			'dataset/:type/:ds/:id': 'chart',
+			'dataset/:dataset/:varname/:id': 'chart',
 			'/*': 'home'
 		},
 
