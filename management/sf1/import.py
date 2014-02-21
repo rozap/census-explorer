@@ -60,7 +60,6 @@ def main():
                    "search_analyzer" : "varname_search",
                    "index_analyzer" : "varname_index"
                 }
-
              }
           }
        }

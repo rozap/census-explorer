@@ -13,6 +13,10 @@ require.config({
             deps: ['jquery'],
             exports: 'd3'
         },
+        tip: {
+            deps: ['d3'],
+            exports: 'tip'
+        },
     },
 
 
@@ -20,16 +24,16 @@ require.config({
         jquery: 'libs/jquery',
         underscore: 'libs/underscore',
         d3: 'libs/d3',
-        backbone : 'libs/backbone',
+        tip: 'libs/tip',
+
+        backbone: 'libs/backbone',
     }
 });
 
 
-require(['search'],
-    function(Search) {
-
-        new Search.Search();
-
-
+require(['router', 'search'],
+    function(Router, Search) {
+        var router = new Router.Router();
+        Backbone.history.start();
     }
 );

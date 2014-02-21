@@ -5,6 +5,7 @@ app = Flask(__name__)
 
 
 
+app.add_url_rule('/api/1/sf1/<dataset>/<doc_id>', view_func=LazyView('api.endpoints.sf1'))
 app.add_url_rule('/api/1/search', view_func=LazyView('api.endpoints.search'))
 
 
@@ -17,9 +18,6 @@ def before_request():
 @app.teardown_request
 def teardown_request(exception):
     pass
-
-
-
 
 @app.route("/")
 def index():

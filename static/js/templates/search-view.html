@@ -6,7 +6,7 @@
 	<ul class="result-list">
 		<% results.each(function(result) { %>
 			<li class="result-item">
-				<a href="#dataset/<%- result.get('variable') %>">
+				<a href="#dataset/<%- result.get('dataset') %>/<%- result.get('variable') %>/<%- result.get('id') %>">
 					<h6><%- result.get('variable') %></h6>
 					<h5><%- result.get('concept') %></h5>
 					<h5><%- result.get('label') %></h5>
