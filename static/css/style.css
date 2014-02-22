@@ -5780,7 +5780,8 @@ body {
   position: relative;
 }
 #indef-load {
-  position: absolute;
+  position: fixed;
+  z-index: 20;
   top: 0px;
   height: 10px;
   left: 0px;
