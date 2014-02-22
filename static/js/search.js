@@ -77,7 +77,6 @@ define([
 		},
 
 		onKey: function(e) {
-			console.log(e.keyCode);
 			e.keyCode === 40 && this.onDown(e);
 			e.keyCode === 38 && this.onUp(e);
 			e.keyCode === 13 && this.onSelect(e);

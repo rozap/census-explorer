@@ -5859,19 +5859,19 @@ ul.result-list li.active {
   display: none;
 }
 pre .key {
-  color: #d7dadb;
+  color: #2c3e50;
 }
 pre .string {
-  color: #2c3e50;
+  color: #fc4349;
 }
 pre .number {
   color: #fea7aa;
 }
 pre .boolean {
-  color: #6dbcdb;
+  color: #d7dadb;
 }
 pre .null {
-  color: #fc4349;
+  color: #6dbcdb;
 }
 .doc-info {
   padding-top: 30px;

@@ -82,6 +82,7 @@ define([
 		},
 
 		raw: function() {
+			console.log("RAW")
 			var $r = this.$el.find('#raw-data');
 			if ($r.is(':visible')) {
 				$r.hide();
@@ -212,6 +213,14 @@ define([
 				})
 				.on('mouseover', tip.show)
 				.on('mouseout', tip.hide)
+
+		},
+
+
+		destroy: function() {
+			this.stopListening();
+			this.undelegateEvents();
+			this.$el.html('');
 
 		}
 

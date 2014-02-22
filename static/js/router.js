@@ -33,7 +33,9 @@ define([
 
 		chart: function(dataset, varname, id) {
 			this._initSearchView();
-			if (this._chart) this._chart.stopListening();
+			if (this._chart) {
+				this._chart.destroy();
+			}
 			this._chart = new Chart.Chart({
 				dataset: dataset,
 				varname: varname,
