@@ -2,8 +2,9 @@ define([
 	'underscore',
 	'backbone',
 	'search',
-	'chart'
-], function(_, Backbone, Search, Chart) {
+	'chart',
+	'loader'
+], function(_, Backbone, Search, Chart, Loader) {
 
 	var Router = Backbone.Router.extend({
 
@@ -14,10 +15,13 @@ define([
 
 		initialize: function() {
 			this.dispatcher = _.clone(Backbone.Events);
+			new Loader.Loader(this.dispatcher);
 		},
 
 		_initSearchView: function() {
-			if (this._search) return;
+			if (this._search) {
+				this._search.render();
+			};
 			this._search = new Search.Search({
 				dispatcher: this.dispatcher
 			});
@@ -33,7 +37,8 @@ define([
 			this._chart = new Chart.Chart({
 				dataset: dataset,
 				varname: varname,
-				id: id
+				id: id,
+				dispatcher: this.dispatcher
 			});
 		}
 

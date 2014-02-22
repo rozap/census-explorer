@@ -1,5 +1,24 @@
 @import "bootstrap.less";
 @white : #ffffff;
+html, body {
+	height:100%;
+}
+
+body {
+	position: relative;
+}
+
+#indef-load {
+	position: absolute;
+	top:0px;
+	height:10px;
+	left:0px;
+	right:0px;
+	.border-top-radius(0px);
+	.border-bottom-radius(0px);
+	display: none;
+
+}
 
 h6 {
 	color:@gray-light;
@@ -25,6 +44,19 @@ p.lead {
     border-color: @color;
     outline: 0;
     .box-shadow(~"inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px @{color-rgba}");
+}
+
+.title-home {
+	color:@gray-darker;
+	text-align: center;
+	margin-bottom:@grid-gutter-width;
+	display: block;	
+
+	&:hover {
+		color:@gray;
+		text-decoration: none;
+
+	}
 }
 
 
@@ -154,4 +186,30 @@ pre {
   margin: -1px 0 0 0;
   top: 100%;
   left: 0;
+}
+
+
+@foot-height: 40px;
+
+.page-wrap {
+  min-height: 100%;
+  padding-bottom: @grid-gutter-width;
+  /* equal to footer height */
+  margin-bottom: -@foot-height; 
+}
+.page-wrap:after {
+  content: "";
+  display: block;
+}
+.site-footer, .page-wrap:after {
+  /* .push must be the same height as footer */
+  height: @foot-height; 
+}
+.site-footer {
+	a, span {
+		color:@gray-light;
+		margin: 0px 2px;
+	};
+	padding:(@foot-height - (@line-height-computed/2)) @grid-gutter-width;
+
 }

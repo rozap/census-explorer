@@ -1,6 +1,8 @@
+<% if(term && term.length) { %> 
 <div class="col-lg-12 results-head">
 	<h6>Results (<%- results.length %>)</h6>
 </div>
+
 
 <div class="col-lg-12">
 	<ul class="result-list">
@@ -21,3 +23,5 @@
 		<% }); %>
 	</ul>
 </div>
+
+<% } %>

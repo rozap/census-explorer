@@ -16,10 +16,29 @@
 	</head>
 
 	<body>
-		{% block main %}
+
+		<div id="indef-load" class="progress progress-striped active">
+			<div class="progress-bar progress-bar-warning"  role="progressbar" style="width: 100%"></div>
+		</div>
 
 
-		{% endblock %}
+		<div class="page-wrap">
+			{% block main %}
+
+			{% endblock %}
+		</div>
+		<footer class="site-footer">
+			<a href="http://hiiamchris.com">
+				A thing by Chris
+			</a>
+			<span>
+				&middot;
+			</span>
+			<a href="https://github.com/rozap/census-explorer">
+				Source
+			</a>
+		</footer>
+
 	</body>
 
 

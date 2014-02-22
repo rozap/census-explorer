@@ -1,13 +1,15 @@
 define([
 	'underscore',
 	'backbone',
-
+	'collections',
 
 	'text!templates/search-view.html',
-], function(_, Backbone, SearchViewTemplate) {
+], function(_, Backbone, Collections, SearchViewTemplate) {
 
 
-	var Results = Backbone.Collection.extend({
+	var Results = Collections.AbstractCollection.extend({
+
+
 		url: function() {
 			return '/api/1/search' + this._params();
 		},
@@ -35,12 +37,9 @@ define([
 
 
 
-		initialize: function() {
-			console.log("init");
-
-			this.results = new Results();
+		initialize: function(opts) {
+			this.results = new Results(opts);
 			this.listenTo(this.results, 'sync', this.render, this);
-
 			$('.ds-search').on('keyup', this.onKey.bind(this));
 			$('.ds-search').on('keyup', _.debounce(this.search.bind(this), 300));
 		},
@@ -49,7 +48,8 @@ define([
 		render: function() {
 			this.$el.html(this.template({
 				_: _,
-				results: this.results
+				results: this.results,
+				term: this._term
 			}));
 		},
 

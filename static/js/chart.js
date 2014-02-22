@@ -3,15 +3,16 @@ define([
 	'backbone',
 	'd3',
 	'tip',
+	'collections',
 
 	'text!pops.json',
 	'text!templates/chart-view.html',
-], function(_, Backbone, d3, tip, Populations, ChartViewTemplate) {
+], function(_, Backbone, d3, tip, Collections, Populations, ChartViewTemplate) {
 
 
-	var Dataset = Backbone.Collection.extend({
+	var Dataset = Collections.AbstractCollection.extend({
 		initialize: function(opts) {
-			_.extend(this, opts);
+			Collections.AbstractCollection.prototype.initialize.call(this, opts);
 			if (!this.varname) throw new Error('No varname');
 			if (!this.dataset) throw new Error('No Dataset');
 			if (!this.id) throw new Error('No id');
@@ -43,8 +44,6 @@ define([
 
 		initialize: function(opts) {
 			_.extend(this, opts);
-
-
 			this.ds = new Dataset(opts);
 			this.listenTo(this.ds, 'sync', this.render);
 			this.statePops = JSON.parse(Populations);
