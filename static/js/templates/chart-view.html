@@ -1,11 +1,38 @@
 
-<div class="row">
 	<div class="doc-info col-lg-12">
-		<h4><%- ds.meta.concept %></h4>
-		<h4><%- ds.meta.label %></h4>
+		<p class="lead">
+			<%- ds.meta.concept %>
+		</p>
+	</div>
+	<div class="col-lg-10">
+		<h6><%- ds.meta.label %></h6>
+	</div>
+	<div class="col-lg-2">
+		<h6>
+			<a href="javascript:void(0)" class="raw-data pull-right">Raw Data</a>
+		</h6>
 	</div>
 
+
+
+
+<div class="col-lg-12" id="raw-data">
+	<pre>
+		<%= formatJSON(ds.toJSON()) %>
+	</pre>
 </div>
 
 
-<div id="chart-el"></div>
+<div class="col-lg-12" id="chart-el"></div>
+<div class="col-lg-12" id="chart-controls">
+	<h6>Options</h6>
+
+	<a href="javascript:void(0)"
+		class="normalize-pops btn btn-primary">
+		<% if(isNormal) { %>
+			Non-Normalized
+		<% } else { %>
+			Normalize
+		<% } %> 
+	</a>	
+</div>

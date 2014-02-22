@@ -4,8 +4,9 @@ define([
 	'd3',
 	'tip',
 
+	'text!pops.json',
 	'text!templates/chart-view.html',
-], function(_, Backbone, d3, tip, ChartViewTemplate) {
+], function(_, Backbone, d3, tip, Populations, ChartViewTemplate) {
 
 
 	var Dataset = Backbone.Collection.extend({
@@ -33,23 +34,108 @@ define([
 		el: '#results',
 		template: _.template(ChartViewTemplate),
 
+		events: {
+			'click .raw-data': 'raw',
+			'click .normalize-pops': 'normalizePops'
+		},
+
+		_normalPops: false,
+
 		initialize: function(opts) {
 			_.extend(this, opts);
 
 
 			this.ds = new Dataset(opts);
 			this.listenTo(this.ds, 'sync', this.render);
+			this.statePops = JSON.parse(Populations);
 			this.ds.fetch();
 		},
 
 		render: function() {
 			this.$el.html(this.template({
 				_: _,
-				ds: this.ds
+				ds: this.ds,
+				formatJSON: this.formatJSON,
+				isNormal: this._normalPops
 			}));
 
 			this.postRender();
 		},
+
+		formatJSON: function(obj) {
+			json = JSON.stringify(obj, undefined, 4);
+			result = json.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+			return result.replace(/("(\\u[a-zA-Z0-9]{4}|\\[^u]|[^\\"])*"(\s*:)?|\b(true|false|null)\b|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?)/g, function(match) {
+				var cls = 'number';
+				if (/^"/.test(match)) {
+					if (/:$/.test(match)) {
+						cls = 'key';
+					} else {
+						cls = 'string';
+					}
+				} else if (/true|false/.test(match)) {
+					cls = 'boolean';
+				} else if (/null/.test(match)) {
+					cls = 'null';
+				}
+				return '<span class="' + cls + '">' + match + '</span>';
+			});
+		},
+
+		raw: function() {
+			var $r = this.$el.find('#raw-data');
+			if ($r.is(':visible')) {
+				$r.hide();
+			} else {
+				$r.show();
+			}
+		},
+
+		normalizePops: function() {
+			this._normalPops = !this._normalPops;
+			this.render();
+		},
+
+		adaptData: function(yAxis) {
+			var that = this;
+			var data = _.compact(this.ds.map(function(row) {
+				var value = parseInt(row.get(that.varname));
+				if (that._normalPops) {
+					var cname = row.get('NAME').toUpperCase().replace(' ', '');
+					value = value / that.statePops[cname]
+				}
+
+				//ensure we don't screw things up by return NaN
+				if (_.isNaN(value)) return null;
+
+				return {
+					'state': row.get('NAME'),
+					'value': value
+				}
+			}));
+
+
+			if (this._normalPops) {
+				var sum = _.reduce(data.map(function(row) {
+					return row.value
+				}), function(left, right) {
+					return left + right;
+				}, 0);
+
+				data = data.map(function(row) {
+					row.value = row.value / sum;
+					return row;
+				});
+
+
+				var formatPercent = d3.format(".0%");
+				yAxis.tickFormat(formatPercent);
+			}
+
+			return data;
+
+		},
+
 
 		postRender: function() {
 			var that = this;
@@ -87,15 +173,7 @@ define([
 				.attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
 			svg.call(tip);
-
-
-
-			var data = this.ds.map(function(row) {
-				return {
-					'state': row.get('NAME'),
-					'value': parseInt(row.get(that.varname))
-				}
-			})
+			var data = this.adaptData(yAxis);
 			data.sort(function(a, b) {
 				return a.value > b.value ? -1 : 1;
 			})

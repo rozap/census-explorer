@@ -5772,15 +5772,20 @@ button.close {
     display: none !important;
   }
 }
+h6 {
+  color: #999999;
+  text-transform: uppercase;
+  text-shadow: 1px 1px 1px rgba(213, 213, 213, 0.3);
+}
+p.lead {
+  margin-bottom: 4px;
+}
 .results-head {
   margin-top: 45px;
   margin-bottom: 15px;
 }
 .results-head h6 {
   padding-left: 7.5px;
-  color: #999999;
-  text-transform: uppercase;
-  text-shadow: 1px 1px 1px rgba(213, 213, 213, 0.5);
 }
 ul.result-list {
   list-style: none;
@@ -5820,9 +5825,40 @@ ul.result-list li.active {
   -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(102, 175, 233, 0.6);
   box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(102, 175, 233, 0.6);
 }
+#raw-data {
+  display: none;
+}
+pre .key {
+  color: #5cb85c;
+}
+pre .string {
+  color: #428bca;
+}
+pre .number {
+  color: #f0ad4e;
+}
+pre .boolean {
+  color: #5bc0de;
+}
+pre .null {
+  color: #d9534f;
+}
 .doc-info {
-  padding-left: 30px;
   padding-top: 30px;
+}
+.label-sf1 {
+  background-color: #5bc0de;
+}
+.label-sf1[href]:hover,
+.label-sf1[href]:focus {
+  background-color: #31b0d5;
+}
+.label-acs5 {
+  background-color: #f0ad4e;
+}
+.label-acs5[href]:hover,
+.label-acs5[href]:focus {
+  background-color: #ec971f;
 }
 .axis path,
 .axis line {
@@ -5831,10 +5867,10 @@ ul.result-list li.active {
   shape-rendering: crispEdges;
 }
 .bar {
-  fill: orange;
+  fill: #5bc0de;
 }
 .bar:hover {
-  fill: orangered ;
+  fill: #b0e1ef;
 }
 .x.axis path {
   display: none;
@@ -5851,7 +5887,7 @@ ul.result-list li.active {
 .d3-tip:after {
   box-sizing: border-box;
   display: inline;
-  font-size: 10px;
+  font-size: 12px;
   width: 100%;
   line-height: 1;
   color: rgba(0, 0, 0, 0.8);
