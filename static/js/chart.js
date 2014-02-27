@@ -143,7 +143,7 @@ define([
 			var margin = {
 				top: 20,
 				right: 20,
-				bottom: 30,
+				bottom: 120,
 				left: 80
 			},
 				width = this.$el.width() - margin.left - margin.right,
@@ -158,6 +158,9 @@ define([
 			var yAxis = d3.svg.axis()
 				.scale(y)
 				.orient("left");
+
+			var xAxis = d3.svg.axis()
+				.scale(x)
 
 			var tip = d3.tip()
 				.attr('class', 'd3-tip')
@@ -187,12 +190,34 @@ define([
 			})]);
 
 
+			var xAxis = d3.svg.axis()
+				.scale(x)
+				.orient("bottom");
+
+
+			var xLabels = svg.append("g")
+				.attr("class", "x axis")
+				.attr('width', width)
+				.attr("transform", "translate(0," + height + ")")
+				.call(xAxis)
+				.selectAll("text")
+				.style("text-anchor", "end")
+				.attr("transform", function(d) {
+					return "rotate(-90), translate(-12, -14)"
+				});
+
+			// xLabels.selectAll('text')
+			// 	.style("text-anchor", "end")
+			// 	.attr('transform', function(d, y) {
+			// 		console.log(d, y);
+			// 		return 'rotate(90), translate(' + y * 12 + ', 0)';
+			// 	});
+
 			svg.append("g")
 				.attr("class", "y axis")
 				.call(yAxis)
 				.append("text")
-				.attr("transform", "rotate(-90)")
-				.attr("y", 6)
+				.attr("y", -20)
 				.attr("dy", ".71em")
 				.style("text-anchor", "end")
 				.text("value");
@@ -213,6 +238,7 @@ define([
 				})
 				.on('mouseover', tip.show)
 				.on('mouseout', tip.hide)
+
 
 		},
 
